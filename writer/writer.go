@@ -263,7 +263,7 @@ func (pw *ParquetWriter) flushObjs() error {
 		wg.Add(1)
 		go func(b, e int, index int64) {
 			defer func() {
-				wg.Done()
+				defer wg.Done()
 				if r := recover(); r != nil {
 					switch x := r.(type) {
 					case string:
