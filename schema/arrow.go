@@ -101,6 +101,11 @@ func ConvertArrowToParquetSchema(schema *arrow.Schema) ([]string, error) {
 				arrowDecimal.Precision,
 				arrowDecimal.BitWidth(),
 			)
+		case "month_day_ms_interval":
+			// according to https://github.com/apache/parquet-format/blob/master/LogicalTypes.md#interval
+			const intervalMetaDataTemplate = "name=%s,type=FIXED_LEN_BYTE_ARRAY, logicaltype=INTERVAL, length=12"
+
+			metaData[k] = fmt.Sprintf(intervalMetaDataTemplate, v.Name)
 		default:
 			return nil,
 				fmt.Errorf("Unsupported arrow format: %s", fieldType.Name())
