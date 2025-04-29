@@ -744,6 +744,10 @@ func FindFuncTable(pT *parquet.Type, cT *parquet.ConvertedType, logT *parquet.Lo
 
 		} else if logT.BSON != nil || logT.JSON != nil || logT.STRING != nil || logT.UUID != nil {
 			return stringFuncTable{}
+		} else if logT.INTERVAL != nil {
+			if *pT == parquet.Type_BYTE_ARRAY || *pT == parquet.Type_FIXED_LEN_BYTE_ARRAY {
+				return intervalFuncTable{}
+			}
 		}
 	}
 
