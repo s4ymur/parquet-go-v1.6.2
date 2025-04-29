@@ -417,6 +417,8 @@ func NewLogicalTypeFromFieldsMap(mp map[string]string) (*parquet.LogicalType, er
 
 		case "UUID":
 			logicalType.UUID = parquet.NewUUIDType()
+		case "INTERVAL":
+			logicalType.INTERVAL = parquet.NewIntervalType()
 
 		default:
 			return nil, fmt.Errorf("unknow logicaltype: " + val)
