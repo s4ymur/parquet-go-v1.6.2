@@ -1518,7 +1518,6 @@ func (p *IntervalType) Equals(other *IntervalType) bool {
 }
 
 func (p *IntervalType) String() string {
-	return fmt.Sprintf("IntervalType(%+v)", *p)
 	if p == nil {
 		return "<nil>"
 	}
