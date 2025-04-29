@@ -1497,8 +1497,8 @@ func (p *IntervalType) Write(ctx context.Context, oprot thrift.TProtocol) error 
 	if err := oprot.WriteStructBegin(ctx, "IntervalType"); err != nil {
 		return thrift.PrependError(fmt.Sprintf("%T write struct begin error: ", p), err)
 	}
-	//if p != nil {
-	//}
+	if p != nil {
+	}
 	if err := oprot.WriteFieldStop(ctx); err != nil {
 		return thrift.PrependError("write field stop error: ", err)
 	}
@@ -1507,7 +1507,6 @@ func (p *IntervalType) Write(ctx context.Context, oprot thrift.TProtocol) error 
 	}
 	return nil
 }
-
 
 func (p *IntervalType) Equals(other *IntervalType) bool {
 	if p == other {
