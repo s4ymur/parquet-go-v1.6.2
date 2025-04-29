@@ -1521,7 +1521,7 @@ func (p *IntervalType) String() string {
 	//if p == nil {
 	//	return "<nil>"
 	//}
-	return fmt.Sprintf("IntervalType(%+v)", *p)
+	return "INTERVAL"
 }
 
 func (p *IntervalType) LogValue() slog.Value {
