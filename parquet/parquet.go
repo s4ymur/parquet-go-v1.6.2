@@ -1518,10 +1518,11 @@ func (p *IntervalType) Equals(other *IntervalType) bool {
 }
 
 func (p *IntervalType) String() string {
-	//if p == nil {
-	//	return "<nil>"
-	//}
-	return "INTERVAL"
+	return fmt.Sprintf("IntervalType(%+v)", *p)
+	if p == nil {
+		return "<nil>"
+	}
+	return fmt.Sprintf("IntervalType(%+v)", *p)
 }
 
 func (p *IntervalType) LogValue() slog.Value {
