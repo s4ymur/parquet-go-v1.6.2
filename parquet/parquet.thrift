@@ -232,6 +232,7 @@ struct MapType {}     // see LogicalTypes.md
 struct ListType {}    // see LogicalTypes.md
 struct EnumType {}    // allowed for BINARY, must be encoded with UTF-8
 struct DateType {}    // allowed for INT32
+struct IntervalType {}
 
 /**
  * Logical type to annotate a column that is always null.
@@ -311,9 +312,6 @@ struct JsonType {
  * Allowed for physical types: BINARY
  */
 struct BsonType {
-}
-
-struct IntervalType {
 }
 
 /**

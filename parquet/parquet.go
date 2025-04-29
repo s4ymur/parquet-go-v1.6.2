@@ -1459,6 +1459,88 @@ func (p *DateType) Validate() error {
 	return nil
 }
 
+type IntervalType struct {
+}
+
+func NewIntervalType() *IntervalType {
+	return &IntervalType{}
+}
+
+func (p *IntervalType) Read(ctx context.Context, iprot thrift.TProtocol) error {
+	if _, err := iprot.ReadStructBegin(ctx); err != nil {
+		return thrift.PrependError(fmt.Sprintf("%T read error: ", p), err)
+	}
+
+
+	for {
+		_, fieldTypeId, fieldId, err := iprot.ReadFieldBegin(ctx)
+		if err != nil {
+			return thrift.PrependError(fmt.Sprintf("%T field %d read error: ", p, fieldId), err)
+		}
+		if fieldTypeId == thrift.STOP {
+			break
+		}
+		if err := iprot.Skip(ctx, fieldTypeId); err != nil {
+			return err
+		}
+		if err := iprot.ReadFieldEnd(ctx); err != nil {
+			return err
+		}
+	}
+	if err := iprot.ReadStructEnd(ctx); err != nil {
+		return thrift.PrependError(fmt.Sprintf("%T read struct end error: ", p), err)
+	}
+	return nil
+}
+
+func (p *IntervalType) Write(ctx context.Context, oprot thrift.TProtocol) error {
+	if err := oprot.WriteStructBegin(ctx, "IntervalType"); err != nil {
+		return thrift.PrependError(fmt.Sprintf("%T write struct begin error: ", p), err)
+	}
+	if p != nil {
+	}
+	if err := oprot.WriteFieldStop(ctx); err != nil {
+		return thrift.PrependError("write field stop error: ", err)
+	}
+	if err := oprot.WriteStructEnd(ctx); err != nil {
+		return thrift.PrependError("write struct stop error: ", err)
+	}
+	return nil
+}
+
+func (p *IntervalType) Equals(other *IntervalType) bool {
+	if p == other {
+		return true
+	} else if p == nil || other == nil {
+		return false
+	}
+	return true
+}
+
+func (p *IntervalType) String() string {
+	if p == nil {
+		return "<nil>"
+	}
+	return fmt.Sprintf("IntervalType(%+v)", *p)
+}
+
+func (p *IntervalType) LogValue() slog.Value {
+	if p == nil {
+		return slog.AnyValue(nil)
+	}
+	v := thrift.SlogTStructWrapper{
+		Type: "*parquet.IntervalType",
+		Value: p,
+	}
+	return slog.AnyValue(v)
+}
+
+var _ slog.LogValuer = (*IntervalType)(nil)
+
+func (p *IntervalType) Validate() error {
+	return nil
+}
+
 // Logical type to annotate a column that is always null.
 // 
 // Sometimes when discovering the schema of existing data, values are always
@@ -2973,88 +3055,6 @@ func (p *BsonType) LogValue() slog.Value {
 var _ slog.LogValuer = (*BsonType)(nil)
 
 func (p *BsonType) Validate() error {
-	return nil
-}
-
-type IntervalType struct {
-}
-
-func NewIntervalType() *IntervalType {
-	return &IntervalType{}
-}
-
-func (p *IntervalType) Read(ctx context.Context, iprot thrift.TProtocol) error {
-	if _, err := iprot.ReadStructBegin(ctx); err != nil {
-		return thrift.PrependError(fmt.Sprintf("%T read error: ", p), err)
-	}
-
-
-	for {
-		_, fieldTypeId, fieldId, err := iprot.ReadFieldBegin(ctx)
-		if err != nil {
-			return thrift.PrependError(fmt.Sprintf("%T field %d read error: ", p, fieldId), err)
-		}
-		if fieldTypeId == thrift.STOP {
-			break
-		}
-		if err := iprot.Skip(ctx, fieldTypeId); err != nil {
-			return err
-		}
-		if err := iprot.ReadFieldEnd(ctx); err != nil {
-			return err
-		}
-	}
-	if err := iprot.ReadStructEnd(ctx); err != nil {
-		return thrift.PrependError(fmt.Sprintf("%T read struct end error: ", p), err)
-	}
-	return nil
-}
-
-func (p *IntervalType) Write(ctx context.Context, oprot thrift.TProtocol) error {
-	if err := oprot.WriteStructBegin(ctx, "IntervalType"); err != nil {
-		return thrift.PrependError(fmt.Sprintf("%T write struct begin error: ", p), err)
-	}
-	if p != nil {
-	}
-	if err := oprot.WriteFieldStop(ctx); err != nil {
-		return thrift.PrependError("write field stop error: ", err)
-	}
-	if err := oprot.WriteStructEnd(ctx); err != nil {
-		return thrift.PrependError("write struct stop error: ", err)
-	}
-	return nil
-}
-
-func (p *IntervalType) Equals(other *IntervalType) bool {
-	if p == other {
-		return true
-	} else if p == nil || other == nil {
-		return false
-	}
-	return true
-}
-
-func (p *IntervalType) String() string {
-	if p == nil {
-		return "<nil>"
-	}
-	return fmt.Sprintf("IntervalType(%+v)", *p)
-}
-
-func (p *IntervalType) LogValue() slog.Value {
-	if p == nil {
-		return slog.AnyValue(nil)
-	}
-	v := thrift.SlogTStructWrapper{
-		Type: "*parquet.IntervalType",
-		Value: p,
-	}
-	return slog.AnyValue(v)
-}
-
-var _ slog.LogValuer = (*IntervalType)(nil)
-
-func (p *IntervalType) Validate() error {
 	return nil
 }
 
