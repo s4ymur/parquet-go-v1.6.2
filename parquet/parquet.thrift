@@ -313,6 +313,9 @@ struct JsonType {
 struct BsonType {
 }
 
+struct IntervalType {
+}
+
 /**
  * LogicalType annotations to replace ConvertedType.
  *
@@ -336,6 +339,7 @@ union LogicalType {
   // use ConvertedType TIMESTAMP_MILLIS for TIMESTAMP(isAdjustedToUTC = *, unit = MILLIS)
   8:  TimestampType TIMESTAMP
 
+  9: IntervalType INTERVAL      // use ConvertedType INTERVAL
   // 9: reserved for INTERVAL
   10: IntType INTEGER         // use ConvertedType INT_* or UINT_*
   11: NullType UNKNOWN        // no compatible ConvertedType
