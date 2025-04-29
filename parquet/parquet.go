@@ -1497,8 +1497,8 @@ func (p *IntervalType) Write(ctx context.Context, oprot thrift.TProtocol) error 
 	if err := oprot.WriteStructBegin(ctx, "IntervalType"); err != nil {
 		return thrift.PrependError(fmt.Sprintf("%T write struct begin error: ", p), err)
 	}
-	if p != nil {
-	}
+	//if p != nil {
+	//}
 	if err := oprot.WriteFieldStop(ctx); err != nil {
 		return thrift.PrependError("write field stop error: ", err)
 	}
@@ -1507,6 +1507,7 @@ func (p *IntervalType) Write(ctx context.Context, oprot thrift.TProtocol) error 
 	}
 	return nil
 }
+
 
 func (p *IntervalType) Equals(other *IntervalType) bool {
 	if p == other {
@@ -1518,10 +1519,10 @@ func (p *IntervalType) Equals(other *IntervalType) bool {
 }
 
 func (p *IntervalType) String() string {
-	if p == nil {
-		return "<nil>"
-	}
-	return fmt.Sprintf("IntervalType(%+v)", *p)
+	//if p == nil {
+	//	return "<nil>"
+	//}
+	return "INTERVAL"
 }
 
 func (p *IntervalType) LogValue() slog.Value {
@@ -1540,7 +1541,6 @@ var _ slog.LogValuer = (*IntervalType)(nil)
 func (p *IntervalType) Validate() error {
 	return nil
 }
-
 
 // Logical type to annotate a column that is always null.
 // 
