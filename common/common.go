@@ -519,6 +519,9 @@ func NewLogicalTypeFromConvertedType(schemaElement *parquet.SchemaElement, info 
 	case parquet.ConvertedType_UTF8:
 		logicalType.STRING = parquet.NewStringType()
 
+	case parquet.ConvertedType_INTERVAL:
+		logicalType.INTERVAL = parquet.NewIntervalType()
+
 	default:
 		return nil
 	}
@@ -533,7 +536,7 @@ func DeepCopy(src, dst interface{}) {
 	return
 }
 
-//Get key tag map for map
+// Get key tag map for map
 func GetKeyTagMap(src *Tag) *Tag {
 	res := NewTag()
 	res.InName = "Key"
@@ -551,7 +554,7 @@ func GetKeyTagMap(src *Tag) *Tag {
 	return res
 }
 
-//Get value tag map for map
+// Get value tag map for map
 func GetValueTagMap(src *Tag) *Tag {
 	res := NewTag()
 	res.InName = "Value"
@@ -569,7 +572,7 @@ func GetValueTagMap(src *Tag) *Tag {
 	return res
 }
 
-//Convert string to a golang variable name
+// Convert string to a golang variable name
 func StringToVariableName(str string) string {
 	ln := len(str)
 	if ln <= 0 {
@@ -591,7 +594,7 @@ func StringToVariableName(str string) string {
 	return name
 }
 
-//Convert the first letter of a string to uppercase
+// Convert the first letter of a string to uppercase
 func HeadToUpper(str string) string {
 	ln := len(str)
 	if ln <= 0 {
@@ -935,7 +938,7 @@ func (table decimalStringFuncTable) MinMaxSize(minVal interface{}, maxVal interf
 	return Min(table, minVal, val), Max(table, maxVal, val), int32(len(val.(string)))
 }
 
-//Get the size of a parquet value
+// Get the size of a parquet value
 func SizeOf(val reflect.Value) int64 {
 	var size int64
 	switch val.Type().Kind() {
@@ -984,17 +987,17 @@ func ReformPathStr(pathStr string) string {
 	return strings.ReplaceAll(pathStr, ".", "\x01")
 }
 
-//Convert path slice to string
+// Convert path slice to string
 func PathToStr(path []string) string {
 	return strings.Join(path, PAR_GO_PATH_DELIMITER)
 }
 
-//Convert string to path slice
+// Convert string to path slice
 func StrToPath(str string) []string {
 	return strings.Split(str, PAR_GO_PATH_DELIMITER)
 }
 
-//Get the pathStr index in a path
+// Get the pathStr index in a path
 func PathStrIndex(str string) int {
 	return len(strings.Split(str, PAR_GO_PATH_DELIMITER))
 }
