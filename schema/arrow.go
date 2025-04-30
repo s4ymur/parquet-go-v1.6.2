@@ -90,13 +90,17 @@ func ConvertArrowToParquetSchema(schema *arrow.Schema) ([]string, error) {
 			metaData[k] = fmt.Sprintf(convertedMetaDataTemplate, v.Name,
 				parquet.Type_INT64, convertedType)
 		case "decimal":
-			const decimalMetaDataTemplate = "name=%s,type=FIXED_LEN_BYTE_ARRAY, logicaltype=DECIMAL, logicaltype.scale=%d, logicaltype.precision=%d, length=%d"
+			const decimalMetaDataTemplate = "name=%s,type=FIXED_LEN_BYTE_ARRAY," +
+				" convertedtype=DECIMAL, scale=%d, precision=%d," +
+				" logicaltype=DECIMAL, logicaltype.scale=%d, logicaltype.precision=%d, length=%d"
 
 			arrowDecimal := fieldType.(*arrow.Decimal128Type) // 'ok' check is not needed, can only be arrow.Decimal128Type
 
 			metaData[k] = fmt.Sprintf(
 				decimalMetaDataTemplate,
 				v.Name,
+				arrowDecimal.Scale,
+				arrowDecimal.Precision,
 				arrowDecimal.Scale,
 				arrowDecimal.Precision,
 				arrowDecimal.BitWidth(),
