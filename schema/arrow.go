@@ -90,14 +90,29 @@ func ConvertArrowToParquetSchema(schema *arrow.Schema) ([]string, error) {
 			metaData[k] = fmt.Sprintf(convertedMetaDataTemplate, v.Name,
 				parquet.Type_INT64, convertedType)
 		case "decimal":
-			const decimalMetaDataTemplate = "name=%s,type=FIXED_LEN_BYTE_ARRAY," +
-				" convertedtype=DECIMAL, scale=%d, precision=%d," +
-				" logicaltype=DECIMAL, logicaltype.scale=%d, logicaltype.precision=%d, length=%d"
+			// we need to choose physical representation according to
+			// https://github.com/CrunchyData/pg_parquet?tab=readme-ov-file#nested-types
 
 			arrowDecimal := fieldType.(*arrow.Decimal128Type) // 'ok' check is not needed, can only be arrow.Decimal128Type
 
+			var physicalType parquet.Type
+
+			switch {
+			case arrowDecimal.Precision >= 1 && arrowDecimal.Precision <= 9:
+				physicalType = parquet.Type_INT32
+			case arrowDecimal.Precision >= 10 && arrowDecimal.Precision <= 18:
+				physicalType = parquet.Type_INT64
+			case arrowDecimal.Precision >= 19 && arrowDecimal.Precision <= 38:
+				physicalType = parquet.Type_FIXED_LEN_BYTE_ARRAY
+			}
+
+			const decimalMetaDataTemplate = "name=%s,type=%s," +
+				" convertedtype=DECIMAL, scale=%d, precision=%d," +
+				" logicaltype=DECIMAL, logicaltype.scale=%d, logicaltype.precision=%d, length=%d"
+
 			metaData[k] = fmt.Sprintf(
 				decimalMetaDataTemplate,
+				physicalType.String(),
 				v.Name,
 				arrowDecimal.Scale,
 				arrowDecimal.Precision,
