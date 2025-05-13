@@ -112,8 +112,8 @@ func ConvertArrowToParquetSchema(schema *arrow.Schema) ([]string, error) {
 
 			metaData[k] = fmt.Sprintf(
 				decimalMetaDataTemplate,
-				physicalType.String(),
 				v.Name,
+				physicalType.String(),
 				arrowDecimal.Scale,
 				arrowDecimal.Precision,
 				arrowDecimal.Scale,
